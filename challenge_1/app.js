@@ -16,7 +16,7 @@ let playPiece = (e) => {
 //Check for three-in-a-row, cat's game
 let checkStatus = (p) => {
 	if (turnsTaken <= 9) { //Check for winner
-		if (checkRows(p)) { //Victory. Deactivate board
+		if (checkRows(p) || checkColumns(p)) { //Victory. Deactivate board
 			document.getElementById('message').innerText = `Results: ${p} wins.`;
 			//console.log(`${p} wins.`);
 			return;
@@ -36,6 +36,15 @@ let checkRows = (p) => {
 	}
 	return false;
 };
+let checkColumns = (p) => {
+	for (let i = 0; i < 3; i++) {
+		let column = [boardData[0][i], boardData[1][i], boardData[2][i]];
+		if (compareArrays(column, [p, p, p])) {
+			return true;
+		}
+	}
+	return false;
+}
 
 let compareArrays = (a, b) => {
 	return JSON.stringify(a) === JSON.stringify(b);
