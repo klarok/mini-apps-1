@@ -1,8 +1,13 @@
-.row {
-	display:flex;
+#board {
+	border-spacing:0;
 }
 .square {
 	border: solid 1px black;
 	height:50px;
 	width:50px;
+	margin:0;
+}
+
+.score {
+	display: block;
 }
