@@ -17,11 +17,13 @@ let playPiece = (e) => {
 let checkStatus = (p) => {
 	if (turnsTaken <= 9) { //Check for winner
 		if (checkRows(p)) { //Victory. Deactivate board
-			console.log(`${p} wins.`);
+			document.getElementById('message').innerText = `Results: ${p} wins.`;
+			//console.log(`${p} wins.`);
 			return;
 		}
 	}
 	if (turnsTaken === 9) {
+		document.getElementById('message').innerText = `Results: No one wins.`;
 		console.log('Tie game');
 	}
 };
@@ -69,6 +71,7 @@ let clearBoard = () => {
 	turnsTaken = 0;
 	player = 'X';
 	boardData = generateBoard();
+	document.getElementById('message').innerHTML = 'Results:';
 	renderBoard();
 }
 boardData = generateBoard();
