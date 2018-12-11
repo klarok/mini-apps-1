@@ -4,18 +4,20 @@
 	<link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-	<div id="message"></div>
-	<div id="scoreboard">
-		<span class="score">
-		</span>
-		<span class="score">
-		</span>
+	<div id="wrapper">
+		<div id="info">
+			<div id="scoreboard">
+				<span class="score">
+				</span>
+				<span class="score">
+				</span>
+			</div>
+			<input type="button" value="Clear Board" id="clear"/>
+			<div id="message"></div>
+		</div>
+
+		<table id="board"></table>
 	</div>
-	<div id="tabletop">
-		<table id="board">
-		</table>
-	</div>
-	<input type="button" value="Clear Board" id="clear"/>
 
 	<script type="text/javascript" src="app.js"></script>
 </body>
