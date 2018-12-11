@@ -2,15 +2,15 @@
 <html>
 	<head></head>
 	<body>
-		<form>
+		<form id="formJSON" action="/" method="post">
 			<div>Input JSON here:</div>
 			<textarea
 				type="textarea" 
-				id="input-JSON"
+				id="inputJSON"
+				name="inputJSON"
 				rows="10"
-				cols="50"/>
-			</textarea>
-			<input type="button" value="Submit" id="submit-JSON"/>
+				cols="50"/></textarea>
+			<input type="submit" value="Submit" id="submitJSON"/>
 		</form>
 		<script type="text/javascript" src="app.js"></script>
 	</body>
