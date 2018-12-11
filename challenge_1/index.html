@@ -13,11 +13,19 @@
 				<span class="score">
 				</span>
 			</div>
+			<label for="toggle-rotation">
+			<input type="checkbox" 
+				id="toggle-rotation"
+				value="enable rotation" 
+				name="toggle-rotation"/>
+				Enable rotation with gravity
+			</label>
+			
 			<input type="button" value="Clear Board" id="clear"/>
 			<div id="message"></div>
 		</div>
 
-		<table id="board"></table>
+		<div id="tabletop"></div>
 	</div>
 
 	<script type="text/javascript" src="model.js"></script>

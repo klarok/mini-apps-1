@@ -3,6 +3,7 @@ let theGame = {
 	player: 'X',
 	turnsTaken: 0,
 	enabled: true,
+	rotationWithGravityEnabled: false,
 	score: {X: 0, O: 0},
 	boardData: [],
 
@@ -12,6 +13,8 @@ let theGame = {
 	update: function([r, c]) {
 		this.boardData[r][c] = this.player;
 		this.turnsTaken++;
+		this.rotate();
+		renderBoard(this.boardData);
 		if (checkStatus(this.player)) {//Winner
 			gameOver(this.player);
 		} else if (this.turnsTaken === 9) {//Tied game
@@ -26,14 +29,23 @@ let theGame = {
 	generateBoard: function () {
 		let board = [];
 		while (board.length < 3) {
-			board.push(['','','']);
+			board.push(['', '', '']);
 		}
 		this.boardData = board;
 	},
 	reset: function () {
 		this.turnsTaken = 0;
 		this.enabled = true;
+		this.rotationWithGravityEnabled = false;
 		this.generateBoard();
+	},
+	rotate: function() {
+		if (this.rotationWithGravityEnabled) {
+			this.boardData = rotateWithGravity(this.boardData);
+		}
+	},
+	toggleRotation: function() {
+		this.rotationWithGravityEnabled = !this.rotationWithGravityEnabled;
 	}
 }
 
@@ -91,5 +103,41 @@ let checkDiagonals = (p) => {
 
 let compareArrays = (a, p) => {
 	return JSON.stringify(a) === JSON.stringify([p, p, p]);
+};
+//////// ROTATION BEHAVIOR //////////////////////////
+//Rotate a square matrix 90 degrees CW
+let rotateMatrix = matrix => {
+	let rot = [];
+	for (let c = 0; c < matrix.length; c++) {
+		let newRow = []
+		for (let r = matrix.length - 1; r > -1; r--) {
+			newRow.push(matrix[r][c]);
+		}
+		rot.push(newRow);
+	}
+	return rot;
+};
+
+let rotateMatrixCCW = matrix => {
+	let rot = [];
+	for (let c = matrix.length - 1; c > -1; c--) {
+		let newRow = [];
+		for (let r = 0; r < matrix.length; r++) {
+			newRow.push(matrix[r][c] || '');
+		}
+		rot.push(newRow);
+	}
+	return rot;
+}
+
+let rotateWithGravity = matrix => {
+	let gravitated = [];
+	for (let i = 0; i < matrix.length; i++) {
+		//Eliminate empty spots, i.e. 'apply sideways gravity'
+		gravitated.push(
+			matrix[i].filter(item => item !== '')
+		); 
+	}
+	return rotateMatrixCCW(gravitated);
 };
 

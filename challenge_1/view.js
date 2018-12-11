@@ -2,21 +2,31 @@
 let bb = document.getElementById('message');
 let bbDefault = 'Let\'s play a game.';
 let scoreboard = document.getElementById('scoreboard');
-let board = document.getElementById('board');
+let tabletop = document.getElementById('tabletop');
 
-let renderBoard = () => {
+let renderBoard = (boardData) => {
+	tabletop.innerHTML = '';
+	let board = document.createElement('div');
+	board.id = 'board';
+	//Add rows to div.board
 	for (let r = 0; r < 3; r++) {
-		let row = document.createElement('tr');
+		let row = document.createElement('div');
 		row.className = 'row';
-		for (let d = 0; d < 3; d++) {
-			let square = document.createElement('td');
+		//Add squares to each row
+		for (let sq = 0; sq < 3; sq++) {
+			let square = document.createElement('div');
 			square.className = 'square';
-			square.id = `${r},${d}`;
+			square.id = `${r},${sq}`; 
 			square.addEventListener('click', playPiece);
+			if (!!boardData) {
+				square.innerHTML = boardData[r][sq];
+			}
+			// square.innerHTML = square.id;
 			row.appendChild(square);
 		}
 		board.appendChild(row);
 	}
+	tabletop.appendChild(board);
 }
 
 let renderPiece = (target) => { //Set a piece on a specific square
@@ -26,7 +36,6 @@ let renderPiece = (target) => { //Set a piece on a specific square
 let renderGameOver = (winner) => {
 	displayMessage(`WINNER: ${winner}`);
 	renderScore();
-	board.style.opacity = '0.5';
 }
 
 let renderScore = () => {
@@ -38,13 +47,9 @@ let renderScore = () => {
 
 
 let resetBoard = (board) => {
-	for (let r = 0; r < board.children.length; r++) {
-		let row = board.children[r];
-		for (let d = 0; d < row.children.length; d++) {
-			row.children[d].innerHTML = '';
-		}
-	}
-	board.style.opacity = '1';
+	tabletop.innerHTML = '';
+	document.getElementById('toggle-rotation').checked = false;
+	renderBoard();
 }
 
 let displayMessage = (message = bbDefault) => { //Communicate to the player

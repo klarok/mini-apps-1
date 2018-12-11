@@ -8,7 +8,7 @@ body {
 	text-align: center;
 }
 #wrapper {
-	border: solid 1px #2e83f2;
+	/*border: solid 1px #2e83f2;*/
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: center;
@@ -16,14 +16,14 @@ body {
 	padding:20px;
 }
 #info {
-	border: solid 1px #ef90a2;
+	/*border: solid 1px #ef90a2;*/
 	display:flex;
 	flex-direction: column;
 	margin: 0 30px;
 }
 
 #scoreboard {
-	border:solid 1px #09ef34;
+	/*border:solid 1px #09ef34;*/
 	margin:10px 0;
 	padding:10px;
 }
@@ -47,15 +47,15 @@ body {
 	color:black;
 	background-color:#717fe9;
 }
-
-#board {
-	border-spacing:0;
-	display:block;
+.row {
+	display:flex;
 }
 .square {
-	text-align: center;
 	border: solid 1px black;
 	height:50px;
 	width:50px;
 	margin:0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

@@ -1,7 +1,7 @@
 let playPiece = (e) => {
 	let loc = e.target.id.split(',').map(i => parseInt(i));
 	if (theGame.isLegalPlay(loc)) {
-		renderPiece(e.target);
+		// renderPiece(e.target);
 		theGame.update(loc);
 	} else {
 		if (theGame.enabled) {
@@ -18,5 +18,8 @@ let reset = () => {
 	resetBoard(board);
 }
 
+let toggleRotation = () => {
+	theGame.toggleRotation();
+}
 document.getElementById('clear').addEventListener('click', reset);
-//Player input name
+document.getElementById('toggle-rotation').addEventListener('change', toggleRotation);
