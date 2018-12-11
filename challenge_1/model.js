@@ -12,15 +12,15 @@ let theGame = {
 	update: function([r, c]) {
 		this.boardData[r][c] = this.player;
 		this.turnsTaken++;
-		if (checkStatus(this.player)) {
+		if (checkStatus(this.player)) {//Winner
 			gameOver(this.player);
-		} else if (this.turnsTaken === 9) {
+		} else if (this.turnsTaken === 9) {//Tied game
 			gameOver();
 		} else { //No winner yet, turns remain
 			this.switchPlayer();
 		}
 	},
-	switchPlayer: function () { //For 'this' binding
+	switchPlayer: function () {
 		this.player = (this.player === 'X') ? 'O' : 'X';
 	},
 	generateBoard: function () {
