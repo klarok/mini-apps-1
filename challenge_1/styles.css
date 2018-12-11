@@ -1,6 +1,12 @@
 body {
 	font-family: Helvetica
 }
+
+.header {
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
 #wrapper {
 	border: solid 1px #2e83f2;
 	display: flex;
@@ -24,6 +30,11 @@ body {
 .score {
 	display: block;
 }
+
+#message{
+	width:150px;
+}
+
 #clear {
 	color:white;
 	background-color: #41476f;
@@ -42,6 +53,7 @@ body {
 	display:block;
 }
 .square {
+	text-align: center;
 	border: solid 1px black;
 	height:50px;
 	width:50px;

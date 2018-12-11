@@ -1,3 +1,4 @@
+///////////  STATE  ///////////////////////////////////////////////////////
 let theGame = {
 	player: 'X',
 	turnsTaken: 0,
@@ -11,6 +12,13 @@ let theGame = {
 	update: function([r, c]) {
 		this.boardData[r][c] = this.player;
 		this.turnsTaken++;
+		if (checkStatus(this.player)) {
+			gameOver(this.player);
+		} else if (this.turnsTaken === 9) {
+			gameOver();
+		} else { //No winner yet, turns remain
+			this.switchPlayer();
+		}
 	},
 	switchPlayer: function () { //For 'this' binding
 		this.player = (this.player === 'X') ? 'O' : 'X';
@@ -29,23 +37,21 @@ let theGame = {
 	}
 }
 
+
+///////////  RESET  ////////////////////////////////////////////
 let gameOver = (winner = 'NO ONE') => {
 	theGame.enabled = false;
 	theGame.player = (winner === 'NO ONE') ? 'X' : winner;
 	if (theGame.score.hasOwnProperty(winner)) {
 		theGame.score[winner] += 1;
 	}
-	// console.log(theGame.score);
-	// displayMessage(`Winner: ${winner}`);
-	// renderScore();
+	renderGameOver(winner);
 };
 
+
+//////////  CHECK GAME STATUS  ////////////////////////////
 let checkStatus = (p) => {
-	if (checkRows(p) || checkColumns(p) || checkDiagonals(p)) { //Victory. Deactivate board
-			gameOver(p);
-	} else if (theGame.turnsTaken === 9) {
-		gameOver();
-	}
+	return (checkRows(p) || checkColumns(p) || checkDiagonals(p));
 };
 
 let checkRows = (p) => {
@@ -87,4 +93,3 @@ let compareArrays = (a, p) => {
 	return JSON.stringify(a) === JSON.stringify([p, p, p]);
 };
 
-export default {theGame, checkStatus, gameOver};
