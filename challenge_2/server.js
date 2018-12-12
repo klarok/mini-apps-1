@@ -24,7 +24,17 @@ app.get('/', (req, res) => {
 	res.sendStatus(200);
 });
 
-app.post('/', upload.single('inputJSON'), jsonToCSV, (req, res) => {
+app.post('/upload', upload.single('inputJSON'), jsonToCSV, (req, res) => {
 	res.send(res.csv);
 });
 
+app.get('/download', (req, res, next) => {
+	let options = {
+		root: `${__dirname}/csv/`
+	};
+
+	let fileName = 'json-csv.txt';
+	res.sendFile(fileName, options, err => {
+		if (err) console.log(err);
+	});
+});

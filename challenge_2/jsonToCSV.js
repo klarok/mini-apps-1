@@ -1,3 +1,5 @@
+const {writeCSV} = require('./writeCSV');
+
 exports.jsonToCSV = (req, res, next) => {
 	console.log(req.file);
 	let jsonObject = reqToJSON(req);
@@ -28,6 +30,7 @@ exports.jsonToCSV = (req, res, next) => {
 		id++;
 	}
 	res.csv = arrayToCSV(employeeData, id);
+	writeCSV(res.csv);
 	next();
 }
 
@@ -43,9 +46,10 @@ let arrayToCSV = (employeeData, lastId) => {
 		for (let f = 0; f < fields.length; f++) {
 			let field = fields[f];
 			if (employeeData[field][0][0] === i) {
+				//If datum matches employee id, add to line
 				line.push(employeeData[field][0][1]);
 				employeeData[field].shift();
-			} else {
+			} else {//Employee missing field; insert placeholder instead
 				line.push('');
 			}
 		}

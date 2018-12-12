@@ -1,10 +1,12 @@
 let SUBMIT  = 'submitJSON';
 let INPUT = 'inputJSON';
+let DOWNLOAD = 'download';
 
 // let submitButton = document.getElementById(SUBMIT);
-submitButton = document.getElementById(SUBMIT);
+let submitButton = document.getElementById(SUBMIT);
 let formInput = document.getElementById(INPUT);
 let form = document.getElementById('formJSON');
+let dlButton = document.getElementById(DOWNLOAD);
 
 let renderCSV = (data) => {
 	document.getElementById('showCSV').innerHTML = `<pre>${data}</pre>`;
@@ -13,9 +15,7 @@ let renderCSV = (data) => {
 submitButton.addEventListener('click', (e) => {
 	let file = formInput.files[0];
 	let formData = new FormData(form);
-	console.log(file);
-	//formData.append('inputJSON', file);
-	fetch('/', {
+	fetch('/upload', {
 		method: 'POST',
 		body: formData
 	})
@@ -29,4 +29,25 @@ submitButton.addEventListener('click', (e) => {
 			console.log(err)
 		});
 
+});
+
+dlButton.addEventListener('click', e => {
+	fetch('/download', {
+		method: 'GET'
+	})
+		.then(res => {
+			console.log(res.body);
+			return res.blob();
+		})
+		.then(blob => {
+			let link = document.createElement('a');
+			link.href = URL.createObjectURL(blob);
+			link.download = 'json-csv.txt';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		})
+		.catch(err => {
+			console.log(err);
+		});
 });
