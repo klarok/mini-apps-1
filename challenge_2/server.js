@@ -9,7 +9,7 @@ const port = 3000;
 
 app.set('view engine', 'ejs');
 
-// app.use(express.static('client'));
+app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
@@ -21,22 +21,10 @@ app.listen(port, () => {
 ///////////// ROUTES /////////////
 
 app.get('/', (req, res) => {
-	res.render('index', {
-		csv: false
-	});
+	res.sendStatus(200);
 });
 
-// app.post('/', jsonToCSV, (req, res) => {
-// 	let csv = res.csv
-// 	res.render('index', {
-// 		csv
-// 	});
-// });
-
 app.post('/', upload.single('inputJSON'), jsonToCSV, (req, res) => {
-	let csv = res.csv
-	res.render('index', {
-		csv
-	});
+	res.send(res.csv);
 });
 

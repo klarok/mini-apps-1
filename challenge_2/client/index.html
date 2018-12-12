@@ -2,16 +2,21 @@
 <html>
 	<head></head>
 	<body>
-		<form id="formJSON" action="/" method="post">
+		<form id="formJSON" enctype="multipart/form-data" name="formJSON">
 			<div>Input JSON here:</div>
-			<textarea
-				type="textarea" 
-				id="inputJSON"
-				name="inputJSON"
-				rows="10"
-				cols="50"/></textarea>
-			<input type="submit" value="Submit" id="submitJSON"/>
+			<input type="file" 
+			   	id="inputJSON"
+			   	name="inputJSON"
+			   	accept=".json"/>
+			<input type="button" value="Submit" id="submitJSON"/>
 		</form>
+		<div id="showCSV">
+
+		</div>
+		<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 		<script type="text/javascript" src="app.js"></script>
 	</body>
 </html>

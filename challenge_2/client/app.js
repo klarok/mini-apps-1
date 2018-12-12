@@ -1,28 +1,32 @@
 let SUBMIT  = 'submitJSON';
 let INPUT = 'inputJSON';
 
-let submitButton = document.getElementById(SUBMIT);
-let textInput = document.getElementById(INPUT);
+// let submitButton = document.getElementById(SUBMIT);
+submitButton = document.getElementById(SUBMIT);
+let formInput = document.getElementById(INPUT);
+let form = document.getElementById('formJSON');
 
-// document.getElementById('formthing').addEventListener('submit', 
-// 	(e) => {
-// 	e.preventDefault();
-// 	console.log('prevent the thing');
-// });
-// submitButton.addEventListener('click', (e) => {
-// 	e.preventDefault();
-// 	// let input = JSON.stringify(textInput.value);
-// 	let input = textInput.value;
-// 	console.log(input);
-// 	fetch('/', {
-// 		method: 'POST',
-// 		body: input
-// 	})
-// 		.then(res => {
-// 			console.log('Heard back from server', res);
-// 		});
-// });
+let renderCSV = (data) => {
+	document.getElementById('showCSV').innerHTML = `<pre>${data}</pre>`;
+};
 
-submitButton.addEventListener('submit', (e) => {
-	e.preventDefault();
-	});
+submitButton.addEventListener('click', (e) => {
+	let file = formInput.files[0];
+	let formData = new FormData(form);
+	console.log(file);
+	//formData.append('inputJSON', file);
+	fetch('/', {
+		method: 'POST',
+		body: formData
+	})
+		.then(res => {
+			return res.text();
+		})
+		.then(text => {
+			renderCSV(text);
+		})
+		.catch(err => {
+			console.log(err)
+		});
+
+});

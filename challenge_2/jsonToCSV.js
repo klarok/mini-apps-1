@@ -1,5 +1,5 @@
 exports.jsonToCSV = (req, res, next) => {
-
+	console.log(req.file);
 	let jsonObject = reqToJSON(req);
 	let id = 0;
 	let employeeData = {};
