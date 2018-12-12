@@ -11,4 +11,8 @@ app.get('/', (req, res) => {
 	res.send('hello world');
 });
 
+app.post('/page', (req, res) => {
+	
+});
+
 app.listen(port, () => console.log('Now listening on port ' + port));
