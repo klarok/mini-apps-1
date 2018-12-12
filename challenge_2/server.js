@@ -27,6 +27,9 @@ app.post('/', jsonToCSV, (req, res) => {
 	// console.log(req.headers);
 	// console.log(req.body);
 	// requestHandler(req, res);
-	console.log('heyehyehye');
-	res.send(req.csv);
+	// console.log('heyehyehye');
+	// res.send(res.csv);
+	res.render('index', {
+		csv: res.csv
+	});
 });

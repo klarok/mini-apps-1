@@ -1,8 +1,4 @@
 exports.jsonToCSV = (req, res, next) => {
-	//Get fields
-	// let fields = Object.keys(jsonObject);
-	//Do not record children
-	// fields.splice(fields.indexOf('children'), 1);
 	let jsonObject = reqToJSON(req);
 	let id = 0;
 	let employeeData = {};
@@ -17,13 +13,13 @@ exports.jsonToCSV = (req, res, next) => {
 					queue.push(child);
 				});
 			} else {
-				let tuple = [id, employee[field]];
+				let datum = [id, employee[field]];
 				//Add employee data and assigned unique id
 				if (!employeeData.hasOwnProperty(field)) {
 					//Start new 'column'
-					employeeData[field] = [tuple];
+					employeeData[field] = [datum];
 				} else {
-					employeeData[field].push(tuple);
+					employeeData[field].push(datum);
 				}
 			}
 		}
@@ -51,14 +47,9 @@ exports.jsonToCSV = (req, res, next) => {
 		lines.push(line.join(','));
 		i++;
 	}
-	
-	//Write to file
-	console.log(lines.join('\n'), 'just done!');
+
 	res.csv = lines.join('\n');
-	console.log(res.csv, 'csvvsv');
-	// return lines.join('\n');
-	//next(req, res);
-	res.send(res.csv);
+	next();
 }
 
 let reqToJSON = (req) => {
