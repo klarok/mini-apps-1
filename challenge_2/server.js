@@ -19,17 +19,12 @@ app.listen(port, () => {
 ///////////// ROUTES /////////////
 
 app.get('/', (req, res) => {
-	res.send('hey there');
-	// res.render('index');
+	res.send();
 });
 
 app.post('/', jsonToCSV, (req, res) => {
-	// console.log(req.headers);
-	// console.log(req.body);
-	// requestHandler(req, res);
-	// console.log('heyehyehye');
-	// res.send(res.csv);
+	let csv = res.csv
 	res.render('index', {
-		csv: res.csv
+		csv
 	});
 });

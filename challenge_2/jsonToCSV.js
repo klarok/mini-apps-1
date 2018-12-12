@@ -26,14 +26,18 @@ exports.jsonToCSV = (req, res, next) => {
 		queue.shift();
 		id++;
 	}
+	res.csv = arrayToCSV(employeeData, id);
+	next();
+}
 
+let arrayToCSV = (employeeData, lastId) => {
 	//Turn into CSV lines
 	let fields = Object.keys(employeeData);
 	let lines = [];
 	lines.push(fields.join(','));
 	let i = 0;
 
-	while (i < id) { //Up until the last employee added (id is one greater)
+	while (i < lastId) { //Up until the last employee added (id is one greater)
 		let line = [];
 		for (let f = 0; f < fields.length; f++) {
 			let field = fields[f];
@@ -47,9 +51,7 @@ exports.jsonToCSV = (req, res, next) => {
 		lines.push(line.join(','));
 		i++;
 	}
-
-	res.csv = lines.join('\n');
-	next();
+	return lines.join('\n');
 }
 
 let reqToJSON = (req) => {
