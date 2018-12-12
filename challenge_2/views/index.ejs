@@ -3,9 +3,13 @@
   <head></head>
   <body>
     <% include partials/form %>
+    <% if (csv) { %>
     <div><h3>CSV</h3>
+      <pre>
       <%= csv %>
+      </pre>
     </div>
+    <% } %>
 
     <script type="text/javascript" src="app.js"></script>
   </body>

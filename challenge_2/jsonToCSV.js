@@ -1,4 +1,5 @@
 exports.jsonToCSV = (req, res, next) => {
+
 	let jsonObject = reqToJSON(req);
 	let id = 0;
 	let employeeData = {};
@@ -55,7 +56,7 @@ let arrayToCSV = (employeeData, lastId) => {
 }
 
 let reqToJSON = (req) => {
-	let json = req.body.inputJSON;
+	let json = req.file.buffer.toString('utf8');
 	//Remove trailing ;, if any
 	if (json[json.length - 1] === ';') { 
 		json = json.slice(0, -1);
