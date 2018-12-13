@@ -10,6 +10,7 @@ module.exports = {
 	devServer: {
 		contentBase: './client/dist'
 	},
+	// devtool: 'source-map',
 	module: {
 		rules: [
 			{

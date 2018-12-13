@@ -8,6 +8,7 @@ class App extends React.Component {
 		super();
 		this.state = {
 			player: 'red',
+			moves: 0,
 			boardData: this.generateBoard()
 		};
 
