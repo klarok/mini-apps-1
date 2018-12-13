@@ -1,10 +1,14 @@
 import React from 'react';
 import {playPiece} from '../controllers/gameplay.jsx';
 
-let Square = ({sqid}) => {
+let Square = ({sqid, onClickHandler, squareData}) => {
 	return (
 		<div className="square">
-			<div className="circle" id={sqid} onClick={playPiece}></div>
+			<div className={"circle" + " " + squareData} 
+				id={sqid} 
+				onClick={onClickHandler}>
+				{squareData}
+			</div>
 		</div>
 	);
 };

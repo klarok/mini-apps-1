@@ -25,6 +25,15 @@
 	background-color: #90defe;
 	border:solid 3px #215390;
 	border-radius: 50%;
+	text-align:center;
 	height:50px;
 	width:50px;
+}
+
+.red {
+	background-color: red;
+}
+
+.black {
+	background-color: black;
 }
