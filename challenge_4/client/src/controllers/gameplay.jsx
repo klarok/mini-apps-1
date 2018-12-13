@@ -1,4 +1,3 @@
-let Promise = require('bluebird');
 
 //TODO: bind state-holding component to this function
 exports.playPiece = function (e) {
@@ -32,7 +31,7 @@ exports.playPiece = function (e) {
 let checkStatus = (boardData, player) => {
 	//Check victories
 	//Check if tied game
-	return checkColumns(boardData, player);
+	return checkColumns(boardData, player) || checkRows(boardData, player);
 }
 
 //NOTE: Columns relative to the rendered board; each boardData array is a column
@@ -50,7 +49,21 @@ let checkColumns = (boardData, player) => {
 	return false;
 }
 
-let checkColumnsAsync = Promise.promisify(checkColumns);
+let checkRows = (boardData, player) => {
+	//Construct checkable rows
+	for (let r = 0; r < 6; r++) {
+		let row = [];
+		for (let c = 0; c < 7; c++) {
+			if (boardData[c][r] !== undefined) {
+				row.push(boardData[c][r]);
+			}
+		}
+		if (gotFourInARow(row, player)) {
+			return true;
+		};
+	}
+	return false;
+}
 
 let gotFourInARow = (sequence, player) => {
 	//Generate four-in-a-row, trim off []s
