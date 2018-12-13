@@ -1,9 +1,10 @@
 import React from 'react';
+import {playPiece} from '../controllers/gameplay.jsx';
 
 let Square = ({sqid}) => {
 	return (
-		<div className="square" id={sqid}>
-			<div className="circle"></div>
+		<div className="square">
+			<div className="circle" id={sqid} onClick={playPiece}></div>
 		</div>
 	);
 };

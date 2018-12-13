@@ -1,10 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Board from './Board.jsx';
+import {playPiece} from '../controllers/gameplay.jsx';
 
 class App extends React.Component {
 	constructor() {
 		super();
+		this.boardData = this.generateBoard();
+
+	}
+
+	generateBoard(numCols = 7, numSq = 6) {
+		return Array.from({length: numCols}, r => {
+			return Array.from({length:numSq}, r => 0)
+		});
 	}
 
 	render() {

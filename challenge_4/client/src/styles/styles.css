@@ -2,12 +2,17 @@
 	font-family: Helvetica
 }
 
-.row {
+#board {
+	display: flex;
+}
+
+.col {
 	display:flex;	
+	flex-direction: column-reverse;
 }
 
 .square {
-	background-color: #041280;
+	background-color: #041250;
 	/*border:solid 1px black;*/
 	height:60px;
 	width:60px;
@@ -18,6 +23,7 @@
 
 .circle {
 	background-color: #90defe;
+	border:solid 3px #215390;
 	border-radius: 50%;
 	height:50px;
 	width:50px;
