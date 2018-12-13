@@ -36,6 +36,21 @@ class App extends React.Component {
 		this.setState({page: this.state.page + 1});
 	}
 
+	postData() {
+		let form = document.getElementById('form');
+		let data = new FormData(form);
+		fetch(form.action, {
+			method: 'POST',
+			body: data
+		})
+			.then(res => {
+				console.log('successful post', res.text());
+			})
+			.catch(err => {
+				console.log('failed to post');
+			});
+	}
+
 	getPage(page) {
 		if (page === 0) {
 			return <Homepage onClickHandler={this.clickForward.bind(this)}/>;

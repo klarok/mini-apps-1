@@ -2,7 +2,9 @@ let Forms = {};
 
 let Form1 = ({onClickHandler}) => {
 	return (
-		<form name="user" id="user">
+		<form name="user" id="user" 
+			action="/form1"
+			enctype="multipart/form-data">
 			<input type="text" 
 				name="user_name" id="user_name" />
 			<input type="text" 
@@ -18,7 +20,9 @@ let Form1 = ({onClickHandler}) => {
 
 let Form2 = ({onClickHandler}) => { //Use fragments?
 	return (
-		<form name="address" id="address">
+		<form name="address" id="address" 
+			action="/form2"
+			enctype="multipart/form-data">
 			<input type="text" 
 				name="address_line1" id="address_line1" />
 			<input type="text" 
