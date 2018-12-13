@@ -27,11 +27,11 @@ let Form2 = ({onClickHandler}) => { //Use fragments?
 				name="address_line1" id="address_line1" />
 			<input type="text" 
 				name="address_line2" id="address_line2" />
-			<input type="password"
+			<input type="text"
 				name="address_city" id="address_city" />
-			<input type="password"
+			<input type="text"
 				name="address_state" id="address_state" />
-			<input type="password"
+			<input type="text"
 				name="address_zipcode" id="address_zipcode" />
 			<input type="button"
 				name="address_submit" id="address_submit" 
@@ -40,5 +40,25 @@ let Form2 = ({onClickHandler}) => { //Use fragments?
 		);
 }
 
-export {Form1, Form2};
+let Form3 = ({onClickHandler}) => {
+	return (
+		<form name="card" id="card" 
+			action="/form3"
+			encType="multipart/form-data">
+			<input type="text" 
+				name="card_number" id="card_number" />
+			<input type="text" 
+				name="card_expiry" id="card_expiry" />
+			<input type="text" 
+				name="card_CVV" id="card_CVV" />
+			<input type="text" 
+				name="card_zipcode" id="card_zipcode" />
+			<input type="button"
+				name="card_submit" id="card_submit" 
+				onClick={onClickHandler} />
+		</form>
+		);
+}
+
+export {Form1, Form2, Form3};
 

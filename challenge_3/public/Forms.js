@@ -46,15 +46,15 @@ let Form2 = ({
     name: "address_line2",
     id: "address_line2"
   }), React.createElement("input", {
-    type: "password",
+    type: "text",
     name: "address_city",
     id: "address_city"
   }), React.createElement("input", {
-    type: "password",
+    type: "text",
     name: "address_state",
     id: "address_state"
   }), React.createElement("input", {
-    type: "password",
+    type: "text",
     name: "address_zipcode",
     id: "address_zipcode"
   }), React.createElement("input", {
@@ -65,4 +65,36 @@ let Form2 = ({
   }));
 };
 
-export { Form1, Form2 };
+let Form3 = ({
+  onClickHandler
+}) => {
+  return React.createElement("form", {
+    name: "card",
+    id: "card",
+    action: "/form3",
+    encType: "multipart/form-data"
+  }, React.createElement("input", {
+    type: "text",
+    name: "card_number",
+    id: "card_number"
+  }), React.createElement("input", {
+    type: "text",
+    name: "card_expiry",
+    id: "card_expiry"
+  }), React.createElement("input", {
+    type: "text",
+    name: "card_CVV",
+    id: "card_CVV"
+  }), React.createElement("input", {
+    type: "text",
+    name: "card_zipcode",
+    id: "card_zipcode"
+  }), React.createElement("input", {
+    type: "button",
+    name: "card_submit",
+    id: "card_submit",
+    onClick: onClickHandler
+  }));
+};
+
+export { Form1, Form2, Form3 };

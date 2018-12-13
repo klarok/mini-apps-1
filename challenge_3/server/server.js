@@ -27,7 +27,7 @@ app.get('/form1', (req, res) => { //Clicked checkout, insert new record
 		});
 });
 
-app.post('/form1', upload.none(), (req, res) => {
+app.post('/form1', upload.none(), (req, res) => { //refactor and get rid of copies
 	update(db, req.session.id, req.body)
 		.then(insertId => {
 			res.send(insertId);
@@ -38,8 +38,30 @@ app.post('/form1', upload.none(), (req, res) => {
 		});
 });
 
+app.post('/form2', upload.none(), (req, res) => { 
+	update(db, req.session.id, req.body)
+		.then(record => {
+			res.send(record);
+		})
+		.catch(err => {
+			console.log('###############');
+			console.log(err);
+		});
+});
+
+app.post('/form3', upload.none(), (req, res) => {
+	update(db, req.session.id, req.body)
+		.then(record => {
+			res.send(record);
+		})
+		.catch(err => {
+			console.log('###############');
+			console.log(err);
+		});
+});
+
 app.get('/confirm', (req, res) => {
-	find(db)
+	find(db, req.session.id)
 		.then(records => {
 			res.send(records);
 		});

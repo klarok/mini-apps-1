@@ -1,4 +1,4 @@
-import {Form1, Form2} from './Forms.js';
+import {Form1, Form2, Form3} from './Forms.js';
 
 
 class App extends React.Component {
@@ -26,7 +26,8 @@ class App extends React.Component {
 				expiry: null,
 				CVV: null,
 				zipcode: null
-			}
+			},
+			displayData: {}
 		};
 	}
 
@@ -43,13 +44,17 @@ class App extends React.Component {
 		} else {
 			url = '/confirm';
 		}
+
 		fetch(url, {
 			method: 'GET'
 		})
 			.then(res => {
-				console.log('successful post', res.text());
-				console.log(res);
-				this.clickForward();
+				res.text()
+					.then(text => {
+						console.log(text);
+						this.setState({displayData: text});
+						this.clickForward();
+					});
 			})
 			.catch(err => {
 				console.log('failed to post');
@@ -65,8 +70,12 @@ class App extends React.Component {
 			body: data
 		})
 			.then(res => {
-				console.log('successful post', res.text());
-				this.clickForward();
+				res.text()
+					.then(text => {
+						console.log(text);
+						this.setState({displayData: text});
+						this.clickForward();
+					});
 			})
 			.catch(err => {
 				console.log('failed to post');
@@ -79,7 +88,11 @@ class App extends React.Component {
 		} else if (page === 1) {
 			return <Form1 onClickHandler={this.postData.bind(this)}/>
 		} else if (page === 2) {
-			return <ConfirmPage />;
+			return <Form2 onClickHandler={this.postData.bind(this)}/>
+		} else if (page === 3) {
+			return <Form3 onClickHandler={this.postData.bind(this)}/>
+		} else {
+			return <ConfirmPage data={this.state.displayData}/>;
 		}
 	}
 
@@ -101,9 +114,9 @@ let Homepage = ({onClickHandler}) => (
 	</button>
 );
 
-let ConfirmPage = () => (
+let ConfirmPage = ({data}) => (
 	<div>
-		<div>Data here</div>
+		<div id="datadump">{data}</div>
 		<input type="button" value="Purchase" />
 	</div>
 );

@@ -15,9 +15,9 @@ module.exports.db = new Promise(
 		});
 	});
 
-module.exports.insert = (db, data) => {
+module.exports.insert = (db, data, coll = 'users') => {
 	return db.then(db => {
-		let collection = db.collection('users'); //name of form from the data
+		let collection = db.collection(coll); //name of form from the data
 		return new Promise((resolve, reject) => {
 			collection.insertOne(data, (err, feedback) => {
 				if (err) throw err;
@@ -44,14 +44,21 @@ module.exports.find = (db, session, coll = 'users') => {
 	});
 }
 
-module.exports.update = (db, session, data) => { //form data object
+module.exports.update = (db, session, data, coll = 'users') => { //form data object
 	return db.then(db => {
-		let collection = db.collection('users');//which db?
+		let collection = db.collection(coll);//which db?
 		let dataObj = {$set: data};
 		return new Promise((resolve, reject) => {
-			collection.updateOne({"session": session}, dataObj, (err, r) => {
-				if (err) throw err;
-				resolve(r);
+			collection.findOneAndUpdate({'session': session}, dataObj, {
+				returnNewDocument: true
+			})
+			.then(record => {
+				console.log('*****************');
+				console.log(record.value);
+				resolve(record.value);
+			})
+			.catch(err => {
+				throw new Error('failed to update');
 			});
 		});
 	});
