@@ -1,6 +1,6 @@
 let Promise = require('bluebird');
 
-const {db, insert, find} = require('./db');
+const {db, insert, find, update} = require('./db');
 const express = require('express');
 const app = express();
 const multer = require('multer');
@@ -18,13 +18,25 @@ app.get('/', (req, res) => {
 });
 
 app.post('/form1', upload.none(), (req, res) => {
-	insert(db, req.body)
+	console.log(req.body, typeof req.body);
+	update(db, req.body)
+		.then(insertId => {
+			res.send(insertId);
+		})
+		.catch(err => {
+			console.log('###############');
+			console.log(err);
+		});
+});
+
+app.get('/form1', (req, res) => { //Clicked checkout, insert new record
+	insert(db, {}) //no data yet; otherwise req.body
 		.then(insertId => {
 			res.send(insertId);
 		});
 });
 
-app.get('/form1', (req, res) => {
+app.get('/confirm', (req, res) => {
 	find(db)
 		.then(records => {
 			res.send(records);

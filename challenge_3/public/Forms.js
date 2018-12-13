@@ -5,7 +5,9 @@ let Form1 = ({
 }) => {
   return React.createElement("form", {
     name: "user",
-    id: "user"
+    id: "user",
+    action: "/form1",
+    encType: "multipart/form-data"
   }, React.createElement("input", {
     type: "text",
     name: "user_name",
@@ -32,7 +34,9 @@ let Form2 = ({
   //Use fragments?
   return React.createElement("form", {
     name: "address",
-    id: "address"
+    id: "address",
+    action: "/form2",
+    encType: "multipart/form-data"
   }, React.createElement("input", {
     type: "text",
     name: "address_line1",

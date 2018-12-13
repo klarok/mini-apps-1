@@ -37,8 +37,9 @@ class App extends React.Component {
 	}
 
 	postData() {
-		let form = document.getElementById('form');
+		let form = document.getElementsByTagName('form')[0];
 		let data = new FormData(form);
+		console.log(form);
 		fetch(form.action, {
 			method: 'POST',
 			body: data
@@ -50,12 +51,16 @@ class App extends React.Component {
 				console.log('failed to post');
 			});
 	}
+	toNext(e) {
+		this.postData();
+		//this.clickForward();
+	}
 
 	getPage(page) {
 		if (page === 0) {
 			return <Homepage onClickHandler={this.clickForward.bind(this)}/>;
 		} else if (page === 1) {
-			return <Form1 onClickHandler={this.clickForward.bind(this)}/>
+			return <Form1 onClickHandler={this.toNext.bind(this)}/>
 		} else if (page === 2) {
 			return <ConfirmPage />;
 		}
