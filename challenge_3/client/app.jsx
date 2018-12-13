@@ -36,7 +36,27 @@ class App extends React.Component {
 		this.setState({page: this.state.page + 1});
 	}
 
-	postData() {
+	getData(e) {
+		let url;
+		if (e.target.value === 'checkout') {
+			url = '/form1'; //some other attribute? custom?
+		} else {
+			url = '/confirm';
+		}
+		fetch(url, {
+			method: 'GET'
+		})
+			.then(res => {
+				console.log('successful post', res.text());
+				console.log(res);
+				this.clickForward();
+			})
+			.catch(err => {
+				console.log('failed to post');
+			});
+	}
+
+	postData(e) {
 		let form = document.getElementsByTagName('form')[0];
 		let data = new FormData(form);
 		console.log(form);
@@ -46,21 +66,18 @@ class App extends React.Component {
 		})
 			.then(res => {
 				console.log('successful post', res.text());
+				this.clickForward();
 			})
 			.catch(err => {
 				console.log('failed to post');
 			});
 	}
-	toNext(e) {
-		this.postData();
-		//this.clickForward();
-	}
 
 	getPage(page) {
 		if (page === 0) {
-			return <Homepage onClickHandler={this.clickForward.bind(this)}/>;
+			return <Homepage onClickHandler={this.getData.bind(this)}/>;
 		} else if (page === 1) {
-			return <Form1 onClickHandler={this.toNext.bind(this)}/>
+			return <Form1 onClickHandler={this.postData.bind(this)}/>
 		} else if (page === 2) {
 			return <ConfirmPage />;
 		}
@@ -79,7 +96,7 @@ class App extends React.Component {
 }
 
 let Homepage = ({onClickHandler}) => (
-	<button onClick={onClickHandler}>
+	<button value='checkout' onClick={onClickHandler}>
 		Checkout
 	</button>
 );

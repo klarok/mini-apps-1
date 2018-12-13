@@ -5,9 +5,11 @@ const express = require('express');
 const app = express();
 const multer = require('multer');
 const upload = multer();
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const port = 3000;
 
+app.use(session({secret: 'it was required so'}));
 app.use(bodyParser());
 app.use(express.static('public'));
 
@@ -17,22 +19,22 @@ app.get('/', (req, res) => {
 	res.send('hello world');
 });
 
+app.get('/form1', (req, res) => { //Clicked checkout, insert new record
+	let sessId = req.session.id;
+	insert(db, {session: sessId}) //no data yet; otherwise req.body
+		.then(insertId => {
+			res.send(sessId);
+		});
+});
+
 app.post('/form1', upload.none(), (req, res) => {
-	console.log(req.body, typeof req.body);
-	update(db, req.body)
+	update(db, req.session.id, req.body)
 		.then(insertId => {
 			res.send(insertId);
 		})
 		.catch(err => {
 			console.log('###############');
 			console.log(err);
-		});
-});
-
-app.get('/form1', (req, res) => { //Clicked checkout, insert new record
-	insert(db, {}) //no data yet; otherwise req.body
-		.then(insertId => {
-			res.send(insertId);
 		});
 });
 
