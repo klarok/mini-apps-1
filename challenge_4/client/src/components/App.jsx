@@ -15,9 +15,6 @@ class App extends React.Component {
 	}
 
 	generateBoard(numCols = 7, numSq = 6) {
-		// return Array.from({length: numCols}, r => {
-		// 	return Array.from({length:numSq}, r => 0)
-		// });
 		return Array.from({length: numCols}, c => []);
 	}
 

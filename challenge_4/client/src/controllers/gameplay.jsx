@@ -33,7 +33,8 @@ let checkStatus = (boardData, player) => {
 	//Check if tied game
 	return checkColumns(boardData, player) || 
 			checkRows(boardData, player) ||
-			checkMinorDiagonals(boardData, player);
+			checkMinorDiagonals(boardData, player) ||
+			checkMajorDiagonals(boardData, player);
 }
 
 //NOTE: Columns relative to the rendered board; each boardData array is a column
@@ -73,7 +74,24 @@ let checkMinorDiagonals = (boardData, player) => {
 				diagonal.push(boardData[c][c - start]);	
 			}
 		}
-		console.log(diagonal);
+		// console.log(diagonal);
+		if (gotFourInARow(diagonal, player)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+let checkMajorDiagonals = (boardData, player) => {
+	let rTop = 5;
+
+	for (let start = -2; start < 4; start++) {
+		let diagonal = [];
+		for (let c = start; c < 6; c++) {
+			if (c >= 0) {
+				diagonal.push(boardData[c][rTop - (c - start)]);
+			}
+		}
 		if (gotFourInARow(diagonal, player)) {
 			return true;
 		}
