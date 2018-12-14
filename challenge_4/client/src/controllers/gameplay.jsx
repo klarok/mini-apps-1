@@ -31,7 +31,9 @@ exports.playPiece = function (e) {
 let checkStatus = (boardData, player) => {
 	//Check victories
 	//Check if tied game
-	return checkColumns(boardData, player) || checkRows(boardData, player);
+	return checkColumns(boardData, player) || 
+			checkRows(boardData, player) ||
+			checkMinorDiagonals(boardData, player);
 }
 
 //NOTE: Columns relative to the rendered board; each boardData array is a column
@@ -54,13 +56,27 @@ let checkRows = (boardData, player) => {
 	for (let r = 0; r < 6; r++) {
 		let row = [];
 		for (let c = 0; c < 7; c++) {
-			if (boardData[c][r] !== undefined) {
-				row.push(boardData[c][r]);
-			}
+			row.push(boardData[c][r]);
 		}
 		if (gotFourInARow(row, player)) {
 			return true;
-		};
+		}
+	}
+	return false;
+}
+
+let checkMinorDiagonals = (boardData, player) => {
+	for (let start = -2; start < 4; start++) {
+		let diagonal = [];
+		for (let c = start; c < 7; c++) {
+			if (c >= 0) {
+				diagonal.push(boardData[c][c - start]);	
+			}
+		}
+		console.log(diagonal);
+		if (gotFourInARow(diagonal, player)) {
+			return true;
+		}
 	}
 	return false;
 }
